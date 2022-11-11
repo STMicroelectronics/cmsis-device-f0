@@ -156,6 +156,8 @@ void SystemInit(void)
   *           - If SYSCLK source is PLL, SystemCoreClock will contain the HSE_VALUE(**)
   *             or HSI_VALUE(*) multiplied/divided by the PLL factors.
   *
+  *           - If SYSCLK source is HSI48, SystemCoreClock will contain the HSI48_VALUE(***)
+  *
   *         (*) HSI_VALUE is a constant defined in stm32f0xx_hal_conf.h file (default value
   *             8 MHz) but the real value may vary depending on the variations
   *             in voltage and temperature.
@@ -164,6 +166,10 @@ void SystemInit(void)
   *              depends on the application requirements), user has to ensure that HSE_VALUE
   *              is same as the real frequency of the crystal used. Otherwise, this function
   *              may have wrong result.
+  *
+  *         (***) HSI48_VALUE is a constant defined in stm32f0xx_hal_conf.h file (default value
+  *             48 MHz) but the real value may vary depending on the variations
+  *             in voltage and temperature.
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.
@@ -219,6 +225,9 @@ void SystemCoreClockUpdate (void)
           STM32F071xB || STM32F072xB || STM32F078xx || STM32F070xB ||
           STM32F091xC || STM32F098xx || STM32F030xC */
       }
+      break;
+    case RCC_CFGR_SWS_HSI48: /* HSI48 used as system clock */
+      SystemCoreClock = HSI48_VALUE;
       break;
     default: /* HSI used as system clock */
       SystemCoreClock = HSI_VALUE;
