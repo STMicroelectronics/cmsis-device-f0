@@ -224,6 +224,9 @@ void SystemCoreClockUpdate (void)
           STM32F091xC || STM32F098xx || STM32F030xC */
 	  }
       break;
+    case RCC_CFGR_SWS_HSI48: /* HSI48 used as system clock */
+      SystemCoreClock = HSI48_VALUE;
+      break;
     default: /* HSI used as system clock */
       SystemCoreClock = HSI_VALUE;
       break;
